@@ -12,6 +12,7 @@ public class DriverManager {
 
     public static void setDriver(AppiumDriver driver) {
         DRIVER.set(driver);
+        System.out.println("Driver initialized for thread: " + Thread.currentThread().getId());
     }
 
     public static AppiumDriver getDriver() {
@@ -26,7 +27,7 @@ public class DriverManager {
         if (driver != null) {
             driver.quit();
             DRIVER.remove();
+            System.out.println("Driver quit for thread: " + Thread.currentThread().getId());
         }
     }
 }
-
