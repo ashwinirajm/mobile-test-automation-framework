@@ -23,11 +23,6 @@ public final class ConfigManager {
 
     // ---------------- PUBLIC API ----------------
 
-    /**
-     * Get property value. Checks system property first, then loaded properties.
-     * @param key property name
-     * @return property value
-     */
     public static String get(String key) {
         String value = System.getProperty(key);
         if (value != null) return value;
@@ -39,60 +34,56 @@ public final class ConfigManager {
         return value;
     }
 
-    /**
-     * Get property with default fallback.
-     */
     public static String get(String key, String defaultValue) {
         return System.getProperty(key, PROPERTIES.getProperty(key, defaultValue));
     }
 
-    /**
-     * Get Environment enum
-     */
     public static Environment getEnvironment() {
-        String env = get("env", "qa");
-        return Environment.from(env);
+        return Environment.from(get("env", Environment.QA.name()));
+    }
+
+    public static Platform getPlatform() {
+        return Platform.from(get("platform", Platform.ANDROID.name()));
     }
 
     // ---------------- PRIVATE LOADERS ----------------
 
     private static void loadBaseConfigs() {
-        load("config/execution.properties");
-        load("config/app.properties");      // optional, if you have general app settings
-        load("config/timeouts.properties"); // optional, if you have default timeouts
+        loadOptional("config/execution.properties");
+        loadOptional("config/app.properties");      
+        loadOptional("config/timeouts.properties"); 
     }
 
     private static void loadPlatformConfig() {
-        String platform = get("platform", "android").toLowerCase();
+        Platform platform = getPlatform();
 
         switch (platform) {
-            case "android":
-                load("config/android.properties");
-                break;
-            case "ios":
-                load("config/ios.properties");
-                break;
-            default:
-                throw new RuntimeException("Unsupported platform: " + platform);
+            case ANDROID -> load("config/android.properties");
+            case IOS -> load("config/ios.properties");
         }
+        System.out.println("Loaded platform config: " + platform);
     }
 
     private static void loadEnvConfig() {
-        String env = get("env", "qa").toLowerCase();
-        load("config/env/" + env + ".properties");
+        Environment env = getEnvironment();
+        load("config/env/" + env.name().toLowerCase() + ".properties");
+        System.out.println("Loaded environment config: " + env);
     }
 
     private static void load(String path) {
-        try (InputStream is = ConfigManager.class
-                .getClassLoader()
-                .getResourceAsStream(path)) {
-
+        try (InputStream is = ConfigManager.class.getClassLoader().getResourceAsStream(path)) {
             if (is == null) {
                 throw new RuntimeException("Config file not found: " + path);
             }
-
             PROPERTIES.load(is);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load config: " + path, e);
+        }
+    }
 
+    private static void loadOptional(String path) {
+        try (InputStream is = ConfigManager.class.getClassLoader().getResourceAsStream(path)) {
+            if (is != null) PROPERTIES.load(is);
         } catch (Exception e) {
             throw new RuntimeException("Failed to load config: " + path, e);
         }
