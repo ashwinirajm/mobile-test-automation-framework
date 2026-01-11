@@ -10,13 +10,23 @@ public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        AppiumDriver driver = DriverFactory.createDriver();
-        DriverManager.setDriver(driver);
+        try {
+            AppiumDriver driver = DriverFactory.createDriver();
+            DriverManager.setDriver(driver);
+        } catch (Exception e) {
+            throw new RuntimeException("Driver initialization failed", e);
+        }
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         DriverManager.quitDriver();
     }
-}
 
+    /**
+     * Helper to access driver in tests without calling DriverManager directly.
+     */
+    protected AppiumDriver driver() {
+        return DriverManager.getDriver();
+    }
+}
