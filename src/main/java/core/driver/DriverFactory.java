@@ -1,6 +1,7 @@
 package core.driver;
 
 import core.config.ConfigManager;
+import core.config.Platform;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -17,15 +18,18 @@ public class DriverFactory {
     }
 
     public static AppiumDriver createDriver() {
-        String platform = ConfigManager.get("platform").toLowerCase();
+        Platform platform = ConfigManager.getPlatform();
 
         switch (platform) {
-            case "android":
+            case ANDROID -> {
+                System.out.println("Creating Android driver...");
                 return createAndroidDriver();
-            case "ios":
+            }
+            case IOS -> {
+                System.out.println("Creating iOS driver...");
                 return createIOSDriver();
-            default:
-                throw new IllegalArgumentException("Unsupported platform: " + platform);
+            }
+            default -> throw new IllegalArgumentException("Unsupported platform: " + platform);
         }
     }
 
@@ -66,4 +70,3 @@ public class DriverFactory {
         }
     }
 }
-
