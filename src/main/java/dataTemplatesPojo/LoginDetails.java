@@ -1,21 +1,20 @@
-package dataTemplatePojo.login;
+package dataTemplatesPojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * LoginData
+ * LoginDetails
  *
  * Purpose:
  * - Holds login-related test data
- * - Used by FixtureFactory to generate test inputs
+ * - Used by FixtureFactory templates
  */
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginData {
+public class LoginDetails {
 
     private String mobileNumber;
 }
