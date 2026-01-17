@@ -1,4 +1,4 @@
-package global.db;
+package core.db;
 
 import com.cred.backend.base.DBHost;
 import com.cred.backend.base.MySQLUtils;
