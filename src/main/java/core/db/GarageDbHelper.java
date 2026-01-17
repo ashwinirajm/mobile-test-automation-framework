@@ -11,8 +11,6 @@ import utilities.LoggerUtils;
  */
 public final class GarageDbHelper {
 
-    private static final String GARAGE_DB = garageDbConstants.GARAGE;
-
     private GarageDbHelper() {
         // Utility class
     }
@@ -28,17 +26,19 @@ public final class GarageDbHelper {
         );
 
         DbUtils.executeUpdate(
-            HERMIONE_DB,
+            GarageDbConstants.GARAGE,
             String.format(
-                "DELETE FROM hermione.user_details WHERE user_id = '%s';",
+                "DELETE FROM %s.user_details WHERE user_id = '%s';",
+                GarageDbConstants.GARAGE,
                 vehicleDetails.getUserId()
             )
         );
 
         DbUtils.executeUpdate(
-            HERMIONE_DB,
+            GarageDbConstants.GARAGE,
             String.format(
-                "DELETE FROM hermione.user_vehicle WHERE user_id = '%s';",
+                "DELETE FROM %s.user_vehicle WHERE user_id = '%s';",
+                GarageDbConstants.GARAGE,
                 vehicleDetails.getUserId()
             )
         );
@@ -60,21 +60,22 @@ public final class GarageDbHelper {
         );
 
         DbUtils.executeUpdate(
-            HERMIONE_DB,
+            GarageDbConstants.GARAGE,
             String.format(
-                "UPDATE hermione.owner_details " +
-                "SET owner_name = '%s' WHERE vehicle_number = '%s';",
+                "UPDATE %s.owner_details SET owner_name = '%s' WHERE vehicle_number = '%s';",
+                GarageDbConstants.GARAGE,
                 vehicleDetails.getVehicleOwnerName(),
                 vehicleDetails.getVehicleNumber()
             )
         );
 
         DbUtils.executeUpdate(
-            HERMIONE_DB,
+            GarageDbConstants.GARAGE,
             String.format(
-                "UPDATE hermione.user_vehicle_status " +
-                "SET status = 'AUTO_SUGGESTION' " +
+                "UPDATE %s.user_vehicle_status SET status = '%s' " +
                 "WHERE vehicle_number = '%s' AND user_id = '%s';",
+                GarageDbConstants.GARAGE,
+                GarageDbConstants.AUTO_SUGGESTION,
                 vehicleDetails.getVehicleNumber(),
                 vehicleDetails.getUserId()
             )
@@ -86,3 +87,4 @@ public final class GarageDbHelper {
         );
     }
 }
+
