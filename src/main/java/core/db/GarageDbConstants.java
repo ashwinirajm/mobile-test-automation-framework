@@ -5,9 +5,9 @@ package core.db;
  *
  * Holds database and schema constants used in Garage related DB operations.
  */
-public final class garageDbConstants {
+public final class GarageDbConstants {
 
-    private garageDbConstants() {
+    private GarageDbConstants() {
         // Prevent instantiation
     }
 
