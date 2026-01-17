@@ -1,4 +1,4 @@
-package global.db;
+package core.db;
 
 import dataTemplatesPojo.VehicleDetails;
 import utilities.LoggerUtils;
