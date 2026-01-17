@@ -11,8 +11,10 @@ public class VehicleDetailsTemplate implements TemplateLoader {
     public void load() {
 
         Fixture.of(VehicleDetails.class)
-            .addTemplate("validVehicle", new Rule() {{
+            .addTemplate("validVehicleForAdd", new Rule() {{
+                add("userId", "test_user_1001");
                 add("vehicleNumber", "KA01AB1234");
+                add("vehicleOwnerName", "Test Owner");
             }});
     }
 }
