@@ -8,6 +8,12 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
+    @BeforeClass
+    public void setUp() {
+        // driver init (already in your framework)
+        FixtureLoader.loadTemplates();
+    }
+
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
         try {
