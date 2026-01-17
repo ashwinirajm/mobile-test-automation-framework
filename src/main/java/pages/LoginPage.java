@@ -2,9 +2,11 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import org.openqa.selenium.By;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import utils.LoggerUtils;
 
 public class LoginPage extends BasePage {
@@ -20,24 +22,27 @@ public class LoginPage extends BasePage {
     @AndroidFindBy(accessibility = "proceedCTA")
     @iOSXCUITFindBy(accessibility = "proceedCTA")
     private WebElement proceedCTA;
-    
 
     public LoginPage(AppiumDriver driver) {
         super(driver);
+        PageFactory.initElements(
+            new AppiumFieldDecorator(driver),
+            this
+        );
     }
 
-    
-    public void inputMobileNumberNewApp(String mobileNum) {
-        waitUntilVisible(mobileInput));
-        driver.findElement(mobileInput).sendKeys(mobileNum);
+    public void inputMobileNumber(String mobileNum) {
+
+        waitUntilVisible(mobileInput);
+        mobileInput.sendKeys(mobileNum);
         LoggerUtils.info("Entered mobile number: " + mobileNum);
 
-        waitUntilClickable(driver.findElement(creditFetchCheckBox));
-        driver.findElement(creditFetchCheckBox).click();
+        waitUntilClickable(creditFetchCheckBox);
+        creditFetchCheckBox.click();
         LoggerUtils.info("Clicked on credit fetch checkbox");
 
-        waitUntilClickable(driver.findElement(proceedBtn));
-        driver.findElement(proceedBtn).click();
-        LoggerUtils.info("Clicked on proceed button");
+        waitUntilClickable(proceedCTA);
+        proceedCTA.click();
+        LoggerUtils.info("Clicked on proceed CTA");
     }
 }
