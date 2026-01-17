@@ -8,10 +8,10 @@ public class LoginTest extends BaseTest {
     @Test
     public void validateLoginWithValidMobile() {
 
-        LoginData loginData =
-                Fixture.from(LoginData.class).gimme("validMobileLogin");
+        LoginDetails loginDetails =
+                Fixture.from(LoginDetails.class).gimme("validMobileLogin");
 
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.inputMobileNumberNewApp(loginData.getMobileNumber());
+        loginPage.inputMobileNumberNewApp(loginDetails.getMobileNumber());
     }
 }
