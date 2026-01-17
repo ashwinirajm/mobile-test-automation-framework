@@ -21,5 +21,10 @@ public class LoginDetailsTemplate implements TemplateLoader {
                 .addTemplate("validLogin", new Rule() {{
                     add("mobileNumber", "9876543210");
                 }});
+        
+        Fixture.of(LoginDetails.class)
+                .addTemplate("invalidLogin", new Rule() {{
+                    add("mobileNumber", "12345");
+                }});
     }
 }
