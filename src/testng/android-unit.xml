@@ -1,4 +1,6 @@
-<suite name="Android Unit Suite">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Android Unit Suite" parallel="false">
 
     <parameter name="platformName" value="ANDROID"/>
 
@@ -8,8 +10,11 @@
                 <include name="unit"/>
             </run>
         </groups>
-        <packages>
-            <package name="unit.pages.GarageHomePageNegativeTest"/>
-        </packages>
+
+        <classes>
+            <class name="unit.pages.GarageHomePageNegativeTest"/>
+            <class name="unit.pages.LoginPageNegativeTest"/>
+        </classes>
     </test>
+
 </suite>
