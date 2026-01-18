@@ -7,7 +7,9 @@ import pages.GarageHomePage;
 
 public class GarageHomePageNegativeTest extends BaseTest {
 
-    @Test(description = "Invalid vehicle number should not be added")
+    @Test(
+        groups = {"unit", "Garage"},
+        description = "Invalid vehicle number should not be added")
     public void addInvalidVehicleNumber() {
         GarageHomePage garagePage = new GarageHomePage(driver());
 
@@ -20,7 +22,9 @@ public class GarageHomePageNegativeTest extends BaseTest {
         );
     }
 
-    @Test(description = "Validation should fail if added vehicle element not visible")
+    @Test(
+        groups = {"unit", "Garage"},
+        description = "Validation should fail if added vehicle element not visible")
     public void validateVehicle_elementNotVisible() {
         GarageHomePage garagePage = new GarageHomePage(driver());
 
