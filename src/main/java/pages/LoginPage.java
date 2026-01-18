@@ -2,6 +2,8 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 import utils.LoggerUtils;
 
@@ -23,24 +25,20 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    /**
-     * Inputs mobile number, clicks credit fetch, then proceeds.
-     * Automatically logs and attaches screenshots.
-     */
     public void inputMobileNumberNewApp(String mobileNum) {
         waitUntilVisible(mobileInput);
         mobileInput.sendKeys(mobileNum);
         LoggerUtils.info("Entered mobile number: " + mobileNum);
-        LoggerUtils.attachScreenshot(driver(), "Mobile_Number_Entered");
+        LoggerUtils.attachScreenshot(driver, "Login_MobileNumberEntered");
 
         waitUntilClickable(creditFetchCheckBox);
         creditFetchCheckBox.click();
         LoggerUtils.info("Clicked on credit fetch checkbox");
-        LoggerUtils.attachScreenshot(driver(), "CreditFetch_Clicked");
+        LoggerUtils.attachScreenshot(driver, "Login_CheckedCreditFetch");
 
         waitUntilClickable(proceedCTA);
         proceedCTA.click();
         LoggerUtils.info("Clicked on proceed button");
-        LoggerUtils.attachScreenshot(driver(), "Proceed_Clicked");
+        LoggerUtils.attachScreenshot(driver, "Login_ProceedClicked");
     }
 }
