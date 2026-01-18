@@ -1,0 +1,15 @@
+<suite name="Android Unit Suite">
+
+    <parameter name="platformName" value="ANDROID"/>
+
+    <test name="Android Unit Tests">
+        <groups>
+            <run>
+                <include name="unit"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="unit.pages.GarageHomePageNegativeTest"/>
+        </packages>
+    </test>
+</suite>
