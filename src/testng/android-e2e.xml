@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Android E2E Suite" parallel="false">
+
+    <!-- Platform info consumed by DriverFactory -->
+    <parameter name="platformName" value="ANDROID"/>
+
+    <test name="Android E2E Tests">
+
+        <!-- Run only E2E tests -->
+        <groups>
+            <run>
+                <include name="e2e"/>
+            </run>
+        </groups>
+
+        <!-- Explicit class selection (safe & controlled) -->
+        <classes>
+            <class name="E2ETest.GarageE2ETest"/>
+        </classes>
+
+    </test>
+
+</suite>
