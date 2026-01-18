@@ -2,6 +2,10 @@
 
 <suite name="Android E2E Suite" parallel="false">
 
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
     <!-- Platform info consumed by DriverFactory -->
     <parameter name="platformName" value="ANDROID"/>
 
