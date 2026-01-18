@@ -5,6 +5,13 @@ import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 import dataTemplatesPojo.VehicleDetails;
 
+/**
+ * VehicleDetailsTemplate
+ *
+ * Purpose:
+ * - Defines reusable vehicle-related test data
+ * - Supports add-to-garage and onboarding flows
+ */
 public class VehicleDetailsTemplate implements TemplateLoader {
 
     @Override
