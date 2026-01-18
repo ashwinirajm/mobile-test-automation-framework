@@ -2,11 +2,7 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import utils.LoggerUtils;
 
 public class LoginPage extends BasePage {
@@ -25,24 +21,26 @@ public class LoginPage extends BasePage {
 
     public LoginPage(AppiumDriver driver) {
         super(driver);
-        PageFactory.initElements(
-            new AppiumFieldDecorator(driver),
-            this
-        );
     }
 
-    public void inputMobileNumber(String mobileNum) {
-
+    /**
+     * Inputs mobile number, clicks credit fetch, then proceeds.
+     * Automatically logs and attaches screenshots.
+     */
+    public void inputMobileNumberNewApp(String mobileNum) {
         waitUntilVisible(mobileInput);
         mobileInput.sendKeys(mobileNum);
         LoggerUtils.info("Entered mobile number: " + mobileNum);
+        LoggerUtils.attachScreenshot(driver(), "Mobile_Number_Entered");
 
         waitUntilClickable(creditFetchCheckBox);
         creditFetchCheckBox.click();
         LoggerUtils.info("Clicked on credit fetch checkbox");
+        LoggerUtils.attachScreenshot(driver(), "CreditFetch_Clicked");
 
         waitUntilClickable(proceedCTA);
         proceedCTA.click();
-        LoggerUtils.info("Clicked on proceed CTA");
+        LoggerUtils.info("Clicked on proceed button");
+        LoggerUtils.attachScreenshot(driver(), "Proceed_Clicked");
     }
 }
