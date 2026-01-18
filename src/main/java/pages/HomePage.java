@@ -7,6 +7,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import utils.LoggerUtils;
 
 public class HomePage extends BasePage {
 
@@ -26,9 +27,18 @@ public class HomePage extends BasePage {
         );
     }
 
+    /**
+     * Navigate to Garage Home page.
+     * Automatically logs action and attaches screenshot.
+     */
     public GarageHomePage navigateToGarageHome() {
         if (isElementVisible(garageCTA)) {
             garageCTA.click();
+            LoggerUtils.info("Clicked on Garage CTA from Home Page");
+            LoggerUtils.attachScreenshot(driver(), "Clicked_GarageCTA");
+        } else {
+            LoggerUtils.warn("Garage CTA not visible on Home Page");
+            LoggerUtils.attachScreenshot(driver(), "GarageCTA_NotVisible");
         }
         return new GarageHomePage(driver);
     }
