@@ -3,25 +3,27 @@ package base;
 import core.driver.DriverFactory;
 import core.driver.DriverManager;
 import io.appium.java_client.AppiumDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
-/**
- * BaseTest
- *
- * Responsibilities:
- * - Load fixture templates once
- * - Create and quit Appium driver per test
- */
 public class BaseTest {
 
+    protected String platformName;
+
     /**
-     * Load all fixture templates once before test execution starts
+     * Load fixture templates once before test execution starts
      */
     @BeforeSuite(alwaysRun = true)
     public void loadFixtures() {
         FixtureLoader.loadTemplates();
+    }
+
+    /**
+     * Capture platform name from TestNG XML
+     */
+    @BeforeClass(alwaysRun = true)
+    @Parameters({"platformName"})
+    public void setPlatform(@Optional("ANDROID") String platformName) {
+        this.platformName = platformName;
     }
 
     /**
@@ -30,7 +32,7 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void setUpDriver() {
         try {
-            AppiumDriver driver = DriverFactory.createDriver();
+            AppiumDriver driver = DriverFactory.createDriver(platformName);
             DriverManager.setDriver(driver);
         } catch (Exception e) {
             throw new RuntimeException("Driver initialization failed", e);
