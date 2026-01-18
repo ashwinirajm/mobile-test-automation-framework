@@ -14,7 +14,9 @@ import java.util.Map;
 
 public class GarageDbHelperNegativeTest extends BaseTest {
 
-    @Test(description = "DB cleanup should not fail for non-existent user")
+    @Test(
+        groups = {"unit", "db"},
+        description = "DB cleanup should not fail for non-existent user")
     public void resetUserData_nonExistingUser() {
         VehicleDetails vehicle =
             Fixture.from(VehicleDetails.class).gimme("validVehicle");
@@ -33,7 +35,9 @@ public class GarageDbHelperNegativeTest extends BaseTest {
         Assert.assertTrue(rows.isEmpty(), "No DB rows should exist for invalid user");
     }
 
-    @Test(description = "DB setup should not break for invalid vehicle number")
+    @Test(
+        groups = {"unit", "db"},
+        description = "DB setup should not break for invalid vehicle number")
     public void setupDatabase_invalidVehicleNumber() {
         VehicleDetails vehicle =
             Fixture.from(VehicleDetails.class).gimme("validVehicle");
