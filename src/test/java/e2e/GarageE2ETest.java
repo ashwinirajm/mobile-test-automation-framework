@@ -24,32 +24,32 @@ public class GarageE2ETest extends BaseTest {
     )
     public void validateAddVehicleToGarageWithDB() {
 
-        // 🔹 Test Data (Fixture Driven)
+        // Test Data (Fixture Driven)
         LoginDetails loginDetails = Fixture.from(LoginDetails.class).gimme("validLogin");
         VehicleDetails vehicleDetails = Fixture.from(VehicleDetails.class).gimme("validVehicle");
 
-        // 🔹 1️⃣ Clean DB for this user
+        // Clean DB for this user
         GarageDbHelper.resetUserDataForAddingVehicle(vehicleDetails);
 
-        // 🔹 2️⃣ Setup DB state if needed (owner details, vehicle status)
+        // Setup DB state if needed (owner details, vehicle status)
         GarageDbHelper.setupDatabaseForOnboarding(vehicleDetails);
 
-        // 🔹 Pages
+        // Pages
         LoginPage loginPage = new LoginPage(driver());
         HomePage homePage = new HomePage(driver());
         GarageHomePage garageHomePage = new GarageHomePage(driver());
 
-        // 🔹 3️⃣ Login
+        // Login
         loginPage.inputMobileNumberNewApp(loginDetails.getMobileNumber());
 
-        // 🔹 4️⃣ Navigate to Garage
+        // Navigate to Garage
         homePage.navigateToGarageHome();
 
-        // 🔹 5️⃣ Add Vehicle
+        // Add Vehicle
         garageHomePage.addToGarage();
         garageHomePage.inputVehicleNumber(vehicleDetails.getVehicleNumber());
 
-        // 🔹 6️⃣ Validate Vehicle Added
+        // Validate Vehicle Added
         Assert.assertTrue(
             garageHomePage.validateAddedVehicle(vehicleDetails.getVehicleNumber()),
             "Vehicle was not added to garage"
