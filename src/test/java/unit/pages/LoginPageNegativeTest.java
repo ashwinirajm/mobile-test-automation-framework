@@ -7,7 +7,9 @@ import pages.LoginPage;
 
 public class LoginPageNegativeTest extends BaseTest {
 
-    @Test(description = "Login should handle invalid mobile number gracefully")
+    @Test(
+        groups = {"unit", "Garage"},
+        description = "Login should handle invalid mobile number gracefully")
     public void login_invalidMobileNumber() {
         LoginPage loginPage = new LoginPage(driver());
 
@@ -17,7 +19,9 @@ public class LoginPageNegativeTest extends BaseTest {
         Assert.assertTrue(true, "Invalid mobile input handled");
     }
 
-    @Test(description = "Login should not crash if checkbox is not clickable")
+    @Test(
+        groups = {"unit", "Garage"},
+        description = "Login should not crash if checkbox is not clickable")
     public void login_checkboxNotClickable() {
         LoginPage loginPage = new LoginPage(driver());
 
