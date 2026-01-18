@@ -2,6 +2,8 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 import utils.LoggerUtils;
 
@@ -11,9 +13,9 @@ public class GarageHomePage extends BasePage {
     @iOSXCUITFindBy(accessibility = "addToGarageCTA")
     private WebElement addToGarageCTA;
 
-    @AndroidFindBy(accessibility = "vehicleNumberInputField")
-    @iOSXCUITFindBy(accessibility = "vehicleNumberInputField")
-    private WebElement vehicleNumberInputField;
+    @AndroidFindBy(accessibility = "vehicleNumberInput")
+    @iOSXCUITFindBy(accessibility = "vehicleNumberInput")
+    private WebElement vehicleNumberInput;
 
     @AndroidFindBy(accessibility = "proceedCTA")
     @iOSXCUITFindBy(accessibility = "proceedCTA")
@@ -27,38 +29,41 @@ public class GarageHomePage extends BasePage {
         super(driver);
     }
 
-    /** Clicks Add to Garage CTA with logging and screenshot */
     public void addToGarage() {
         waitUntilClickable(addToGarageCTA);
         addToGarageCTA.click();
         LoggerUtils.info("Clicked Add to Garage button");
-        LoggerUtils.attachScreenshot(driver(), "AddToGarage_Clicked");
+        LoggerUtils.attachScreenshot(driver, "Garage_ClickAddToGarage");
     }
 
-    /** Inputs vehicle number with logging and screenshot */
     public void inputVehicleNumber(String vehicleNumber) {
-        waitUntilVisible(vehicleNumberInputField);
-        vehicleNumberInputField.sendKeys(vehicleNumber);
+        waitUntilVisible(vehicleNumberInput);
+        vehicleNumberInput.sendKeys(vehicleNumber);
         LoggerUtils.info("Entered vehicle number: " + vehicleNumber);
-        LoggerUtils.attachScreenshot(driver(), "Vehicle_Number_Entered");
+        LoggerUtils.attachScreenshot(driver, "Garage_EnteredVehicleNumber");
 
         waitUntilClickable(proceedCTA);
         proceedCTA.click();
-        LoggerUtils.info("Clicked proceed after entering vehicle number");
-        LoggerUtils.attachScreenshot(driver(), "Proceed_Clicked");
+        LoggerUtils.info("Clicked proceed button after entering vehicle");
+        LoggerUtils.attachScreenshot(driver, "Garage_ClickedProceed");
     }
 
-    /** Validates that the vehicle was added successfully */
     public boolean validateAddedVehicle(String vehicleNumber) {
-        waitUntilVisible(addedVehicleNumber);
-        String addedVehicle = addedVehicleNumber.getText();
-        boolean isSame = addedVehicle.equals(vehicleNumber);
+        if (ifElementVisible(addedVehicleNumber, 5000)) {
+            String addedVehicle = addedVehicleNumber.getText();
+            boolean isSameVehicle = addedVehicle.equals(vehicleNumber);
 
-        LoggerUtils.info(isSame
-            ? "Vehicle added successfully: " + vehicleNumber
-            : "Vehicle addition failed. Expected: " + vehicleNumber + ", Found: " + addedVehicle);
-        LoggerUtils.attachScreenshot(driver(), "Validate_Vehicle");
+            LoggerUtils.info(isSameVehicle
+                ? "Vehicle successfully added to garage"
+                : "Failed to add vehicle to garage");
 
-        return isSame;
+            LoggerUtils.attachScreenshot(driver, "Garage_Validation_" + vehicleNumber);
+
+            return isSameVehicle;
+        } else {
+            LoggerUtils.warn("Added vehicle element not visible");
+            LoggerUtils.attachScreenshot(driver, "Garage_ValidationFailed_" + vehicleNumber);
+            return false;
+        }
     }
 }
