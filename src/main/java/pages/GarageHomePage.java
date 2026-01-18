@@ -2,11 +2,7 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import utils.LoggerUtils;
 
 public class GarageHomePage extends BasePage {
@@ -15,8 +11,8 @@ public class GarageHomePage extends BasePage {
     @iOSXCUITFindBy(accessibility = "addToGarageCTA")
     private WebElement addToGarageCTA;
 
-    @AndroidFindBy(accessibility = "vehicleNumberInput")
-    @iOSXCUITFindBy(accessibility = "vehicleNumberInput")
+    @AndroidFindBy(accessibility = "vehicleNumberInputField")
+    @iOSXCUITFindBy(accessibility = "vehicleNumberInputField")
     private WebElement vehicleNumberInputField;
 
     @AndroidFindBy(accessibility = "proceedCTA")
@@ -29,54 +25,40 @@ public class GarageHomePage extends BasePage {
 
     public GarageHomePage(AppiumDriver driver) {
         super(driver);
-        PageFactory.initElements(
-            new AppiumFieldDecorator(driver),
-            this
-        );
     }
 
-    /**
-     * Clicks on Add to Garage CTA
-     */
+    /** Clicks Add to Garage CTA with logging and screenshot */
     public void addToGarage() {
         waitUntilClickable(addToGarageCTA);
         addToGarageCTA.click();
-        LoggerUtils.info("Clicked on Add to Garage CTA");
+        LoggerUtils.info("Clicked Add to Garage button");
+        LoggerUtils.attachScreenshot(driver(), "AddToGarage_Clicked");
     }
 
-    /**
-     * Inputs vehicle number and proceeds
-     */
+    /** Inputs vehicle number with logging and screenshot */
     public void inputVehicleNumber(String vehicleNumber) {
         waitUntilVisible(vehicleNumberInputField);
         vehicleNumberInputField.sendKeys(vehicleNumber);
         LoggerUtils.info("Entered vehicle number: " + vehicleNumber);
+        LoggerUtils.attachScreenshot(driver(), "Vehicle_Number_Entered");
 
         waitUntilClickable(proceedCTA);
         proceedCTA.click();
-        LoggerUtils.info("Clicked on Proceed CTA after entering vehicle number");
+        LoggerUtils.info("Clicked proceed after entering vehicle number");
+        LoggerUtils.attachScreenshot(driver(), "Proceed_Clicked");
     }
 
-    /**
-     * Validates if the vehicle was added successfully
-     */
-    public boolean validateAddedVehicle(String expectedVehicleNumber) {
+    /** Validates that the vehicle was added successfully */
+    public boolean validateAddedVehicle(String vehicleNumber) {
+        waitUntilVisible(addedVehicleNumber);
+        String addedVehicle = addedVehicleNumber.getText();
+        boolean isSame = addedVehicle.equals(vehicleNumber);
 
-        if (isElementVisible(addedVehicleNumber)) {
-            String actualVehicleNumber = addedVehicleNumber.getText();
-            boolean isMatched = actualVehicleNumber.equals(expectedVehicleNumber);
+        LoggerUtils.info(isSame
+            ? "Vehicle added successfully: " + vehicleNumber
+            : "Vehicle addition failed. Expected: " + vehicleNumber + ", Found: " + addedVehicle);
+        LoggerUtils.attachScreenshot(driver(), "Validate_Vehicle");
 
-            LoggerUtils.info(
-                isMatched
-                    ? "Vehicle successfully added to garage: " + actualVehicleNumber
-                    : "Vehicle number mismatch. Expected: " + expectedVehicleNumber +
-                      ", Found: " + actualVehicleNumber
-            );
-
-            return isMatched;
-        }
-
-        LoggerUtils.info("Added vehicle number is not visible on Garage Home");
-        return false;
+        return isSame;
     }
 }
