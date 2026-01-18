@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="DB Unit Test Suite" parallel="false">
+
+    <test name="DB Unit Tests">
+
+        <!-- Run only DB unit tests -->
+        <groups>
+            <run>
+                <include name="unit"/>
+                <include name="db"/>
+            </run>
+        </groups>
+
+        <!-- DB unit tests -->
+        <classes>
+            <class name="unit.db.GarageDbHelperNegativeTest"/>
+        </classes>
+
+    </test>
+
+</suite>
