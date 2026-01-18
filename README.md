@@ -24,25 +24,77 @@ The framework is designed for **E2E, Unit, and DB testing**, with **fixture-driv
 7. Reporting:
     - Allure TestNG reporting with step-wise logs and screenshots.
 
+# 📂 Project Structure
 ```
 src
 ├── main
 │   ├── java
-│   │   ├── base             # BaseTest, BasePage, FixtureLoader
+│   │   ├── base
+│   │   │   ├── BasePage.java
+│   │   │   ├── BaseTest.java
+│   │   │   └── FixtureLoader.java
+│   │   │
 │   │   ├── core
-│   │   │   ├── db           # GarageDbHelper, DbUtils, GarageDbConstants
-│   │   │   ├── driver       # DriverFactory, DriverManager
-│   │   │   └── utils        # LoggerUtils, WaitUtils, MobileActions
-│   │   ├── dataTemplates    # Fixture templates for test data
-│   │   └── dataTemplatesPojo # POJOs for test data
+│   │   │   ├── config
+│   │   │   │   ├── ConfigManager.java
+│   │   │   │   ├── Environment.java
+│   │   │   │   └── Platform.java
+│   │   │   │
+│   │   │   ├── db
+│   │   │   │   ├── DbUtils.java
+│   │   │   │   ├── GarageDbConstants.java
+│   │   │   │   └── GarageDbHelper.java
+│   │   │   │
+│   │   │   ├── driver
+│   │   │   │   ├── DriverFactory.java
+│   │   │   │   └── DriverManager.java
+│   │   │   │
+│   │   │   └── utils
+│   │   │       ├── LoggerUtils.java
+│   │   │       ├── MobileActions.java
+│   │   │       └── WaitUtils.java
+│   │   │
+│   │   ├── dataTemplates
+│   │   │   ├── LoginDetailsTemplate.java
+│   │   │   └── VehicleDetailsTemplate.java
+│   │   │
+│   │   ├── dataTemplatesPojo
+│   │   │   ├── LoginDetails.java
+│   │   │   └── VehicleDetails.java
+│   │   │
+│   │   └── pages
+│   │       ├── GarageHomePage.java
+│   │       ├── HomePage.java
+│   │       └── LoginPage.java
+│   │
+│   └── resources
+│       └── config
+│           ├── androidConfig.properties
+│           ├── execution.properties
+│           ├── iosConfig.properties
+│           └── env
+│               ├── stage.properties
+│               └── uat.properties
 │
 └── test
-    └── java
-        ├── unit
-        │   ├── pages           # Unit tests for page classes
-        │   └── db              # Unit tests for DB helpers
-        └── E2ETest              # End-to-end flows
-
+    ├── java
+    │   ├── E2ETest
+    │   │   └── GarageE2ETest.java
+    │   │
+    │   └── unit
+    │       ├── db
+    │       │   └── GarageDbHelperNegativeTest.java
+    │       │
+    │       └── pages
+    │           ├── GarageHomePageNegativeTest.java
+    │           └── LoginPageNegativeTest.java
+    │
+    └── testng
+        ├── android-e2e.xml
+        ├── android-unit.xml
+        ├── db-unit.xml
+        ├── ios-e2e.xml
+        └── ios-unit.xml
 ```
 # Test Execution
 
