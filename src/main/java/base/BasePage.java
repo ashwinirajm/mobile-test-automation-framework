@@ -1,34 +1,22 @@
 package base;
 
+import core.utils.WaitUtils;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
+/**
+ * BasePage
+ *
+ * Purpose:
+ * - Holds driver reference
+ * - Provides common utilities to pages
+ */
 public abstract class BasePage {
 
     protected AppiumDriver driver;
-    private final WebDriverWait wait;
+    protected WaitUtils wait;
 
     protected BasePage(AppiumDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    }
-
-    /* -------------------- WAIT HELPERS -------------------- */
-
-    protected void waitUntilVisible(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    protected void waitUntilClickable(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    protected void waitUntilPresent(By locator) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        this.wait = new WaitUtils(driver);
     }
 }
