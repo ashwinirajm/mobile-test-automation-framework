@@ -1,5 +1,12 @@
 # 📱 mobile-test-automation-framework
 
+![Java](https://img.shields.io/badge/Java-11%2B-blue)
+![TestNG](https://img.shields.io/badge/TestNG-Framework-green)
+![Appium](https://img.shields.io/badge/Appium-Mobile_Automation-purple)
+![Allure](https://img.shields.io/badge/Allure-Reporting-orange)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey)
+
+
 This repository contains a **structured mobile automation framework** for Android and iOS applications using **Appium** and **TestNG**. 
 
 The framework is designed for **E2E, Unit, and DB testing**, with **fixture-driven data, step-wise logging**, and **Allure reporting** support.
