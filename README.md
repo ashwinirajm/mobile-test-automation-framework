@@ -9,13 +9,18 @@
 
 This repository contains a **structured mobile automation framework** for Android and iOS applications using **Appium** and **TestNG**. 
 
-The framework is designed for **E2E, Unit, and DB testing**, with **fixture-driven data, step-wise logging**, and **Allure reporting** support.
+It is designed to support **real-world testing needs** such as:
+- E2E business flows
+- Page-level and DB unit tests
+- Fixture-driven data setup
+- Database state control
+- Rich Allure reporting
 
 # ✨ Features
 
 1. Cross-Platform Support: Android & iOS
 2. Test Types:
-    - Unit Tests (pages & DB negative scenarios)
+    - Component Tests (pages & DB negative scenarios)
     - E2E Flows
 3. Fixture-Driven Test Data:
     - All test data is maintained outside tests using POJOs and Fixture templates.
@@ -88,7 +93,7 @@ src
     │   ├── E2ETest
     │   │   └── GarageE2ETest.java
     │   │
-    │   └── unit
+    │   └── component
     │       ├── db
     │       │   └── GarageDbHelperNegativeTest.java
     │       │
@@ -149,7 +154,7 @@ iOS:
 - Supports MySQL for Android/iOS test scenarios.
 
 ## 📄 Page Objects
-- Page Object Model is used for all screens.Pages include:
+- Page Object Model is used for all screens. Pages include:
   - LoginPage
   - HomePage
   - GarageHomePage
