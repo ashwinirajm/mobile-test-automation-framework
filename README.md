@@ -1,4 +1,4 @@
-# 📱 mobile-test-automation-framework
+# 📱 appium-mobile-test-framework
 
 ![Java](https://img.shields.io/badge/Java-11%2B-blue)
 ![TestNG](https://img.shields.io/badge/TestNG-Framework-green)
